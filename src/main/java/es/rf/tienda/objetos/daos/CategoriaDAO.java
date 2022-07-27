@@ -1,5 +1,7 @@
 package es.rf.tienda.objetos.daos;
 
+import java.sql.ResultSet;
+
 import es.rf.tienda.dominio.Categoria;
 import es.rf.tienda.exception.DomainException;
 import es.rf.tienda.util.OracleJDBC;
@@ -40,10 +42,23 @@ public class CategoriaDAO {
 	}
 	
 	public Categoria listarUnaCategoria(String values) {
-	//	String query = SELECT_ALL_CATEGORIES + " WHERE categoria_id = " + cat.getId_categoria() + " AND CATEGORIA_NOMBRE = " + cat.getCat_nombre()+ " AND CATEGORIA_DESCRIPCION = " + cat.getCat_descripcion();
-	//	System.out.println(query);
-		Categoria cat;
-	
+		String[] attributes = values.split(";");
+		
+		String query = SELECT_ALL_CATEGORIES + " WHERE cat_id = " + attributes[0] + " AND CAT_NOMBRE = '" + attributes[1] + "' AND CAT_DESCRIPCION = '" + attributes[2] + "'";
+		System.out.println(query);
+		ResultSet rs;
+		Categoria cat = new Categoria();
+		try {
+			rs = jdbc.ejecutarQuery(query);
+			//cHECK IF CORRECT
+			if(rs.next()) {
+				cat.setId_categoria(rs.getInt(1));
+				cat.setCat_nombre(rs.getString(2));
+				cat.setCat_descripcion(rs.getString(3));
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return cat;
 	}

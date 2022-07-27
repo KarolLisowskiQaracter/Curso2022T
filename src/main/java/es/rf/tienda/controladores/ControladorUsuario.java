@@ -6,7 +6,7 @@ import es.rf.tienda.dominio.Usuario;
 
 public class ControladorUsuario implements Controlador<Usuario>{
 
-	public Usuario listOne(Usuario obj) {
+	public Usuario listOne(String obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

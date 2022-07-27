@@ -6,7 +6,7 @@ import es.rf.tienda.dominio.Direccion;
 
 public class ControladorDireccion implements Controlador<Direccion>{
 
-	public Direccion listOne(Direccion obj) {
+	public Direccion listOne(String obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

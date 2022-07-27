@@ -209,25 +209,16 @@ public class VistaCategoria implements ActionListener{
 			
 			JButton jButtonCrearCat = new JButton("Nueva categoria");
 			jButtonCrearCat.setSize(150, 90);
-			jButtonCrearCat.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					try {				
-						System.out.println("hola");
-						//frame.removeAll();
-						frame.hide();
-						crearCategoriaVista();
-						view();
-					}catch(Exception exception){
-						System.out.println("¡El id debe ser un valor numerico!");
-					}
-				}
-			});
+			jButtonCrearCat.setActionCommand("CrearCategoria");
 			
 			JButton jButtonActualizarCat = new JButton("Actualizar");
 			jButtonActualizarCat.setSize(150, 90);
+			jButtonActualizarCat.setActionCommand("ListaUnaCatogoria");
+			
 			JButton  jButtonBorrarCat = new JButton("Borrar");
 			jButtonBorrarCat.setSize(150, 90);
+			jButtonActualizarCat.setActionCommand("BorrarCatogoria");
+			
 			JPanel panel3 = new JPanel();
 			panel3.setBounds(0, 300, 500, 300);
 			Container c2 = new Container();
@@ -251,8 +242,16 @@ public class VistaCategoria implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String comando = e.getActionCommand();
-			if(comando.equals("")) {
-				
+			if(comando.equals("CrearCategoria")) {
+				frame.hide();
+				crearCategoriaVista();
+				view();
+			}else if(comando.equals("ListarUnaCategoria")){
+				String dummy = "111;Dulces;Chocolates, bombones y mucho mas";
+				Categoria cat = controladorCat.listOne(dummy);
+				System.out.println(cat.getId_categoria());
+				System.out.println(cat.getCat_nombre());
+				System.out.println(cat.getCat_descripcion());
 			}
 			
 		}
