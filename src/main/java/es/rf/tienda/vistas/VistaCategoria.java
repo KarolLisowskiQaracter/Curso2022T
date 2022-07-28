@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import es.rf.tienda.controladores.ControladorCategoria;
 import es.rf.tienda.dominio.Categoria;
+import es.rf.tienda.exception.DomainException;
 
 public class VistaCategoria implements ActionListener{
 	private ControladorCategoria controladorCat;
@@ -40,6 +41,7 @@ public class VistaCategoria implements ActionListener{
 	JTextArea descripcionText;
 	JButton aceptarBoton;
 	JButton cancelarBoton;
+	JTable table;
 	
 	public VistaCategoria() {
 		controladorCat = new ControladorCategoria(this);
@@ -68,26 +70,10 @@ public class VistaCategoria implements ActionListener{
 			nombreText = new JTextField();
 			descripcionText = new JTextArea();
 			aceptarBoton = new JButton("Aceptar");
-			aceptarBoton.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					try {
-						
-					}catch(Exception exception){
-						System.out.println("¡El id debe ser un valor numerico!");
-					}
-				}
-			});
-			cancelarBoton = new JButton("Cancelar");
-			cancelarBoton.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					idText.setText("");
-					nombreText.setText("");
-					descripcionText.setText("");
-				}
-			});
+			aceptarBoton.setActionCommand("CrearCategoria");
+			aceptarBoton.addActionListener(this);
+			cancelarBoton = new JButton("Volver al menu");
+			cancelarBoton.addActionListener(this);
 			
 			GridLayout grid = new GridLayout(4,2);
 			panel.setLayout(grid);
@@ -109,25 +95,21 @@ public class VistaCategoria implements ActionListener{
 		frame.setSize(500,400);
 		frame.setLocationRelativeTo(null);
 
-			JTable table = new JTable();
+			table = new JTable();
 			BorderLayout border = new BorderLayout();			
 			
 			List<Categoria> categories = controladorCat.listAll();
-			for(Categoria value : categories) {
-				System.out.println(value.getCat_nombre());
-			}
-			
-			String[][] array = new String[categories.size()][3];
+			String[][] data = new String[categories.size()][3];
 			for(int i = 0; i < categories.size(); i++) {
-				array[i][0] = Integer.toString(categories.get(i).getId_categoria());
-				array[i][1] = categories.get(i).getCat_nombre();
-				array[i][2] = categories.get(i).getCat_descripcion();
+				data[i][0] = Integer.toString(categories.get(i).getId_categoria());
+				data[i][1] = categories.get(i).getCat_nombre();
+				data[i][2] = categories.get(i).getCat_descripcion();
 			}
 		
 		        // Column Names
 		        String[] columnNames = { "ID", "Nombre", "Descripcion" };
 		 
-		        table = new JTable(array, columnNames);
+		        table = new JTable(data, columnNames);
 		        table.setBounds(0, 0, 500, 200);
 		 
 		       
@@ -202,8 +184,38 @@ public class VistaCategoria implements ActionListener{
 				System.out.println(cat.getCat_descripcion());
 				
 			}else if(comando.equals("ActualizarCategoria")){
+				if(!table.getSelectionModel().isSelectionEmpty() && table.getSelectionModel().getSelectedItemsCount() == 1) {
+					int selectedRow = table.getSelectionModel().getSelectedIndices()[0];
+					Categoria categoria = new Categoria();		
+					try {
+						categoria.setId_categoria(Integer.parseInt(table.getValueAt(selectedRow, 0).toString()));
+						categoria.setCat_nombre(table.getValueAt(selectedRow, 1).toString());
+						categoria.setCat_descripcion(table.getValueAt(selectedRow, 2).toString());
+						frame.hide();
+						crearCategoriaVista();
+						idText.setText(Integer.toString(categoria.getId_categoria()));
+						idText.disable();
+						nombreText.setText(categoria.getCat_nombre());
+						descripcionText.setText(categoria.getCat_descripcion());
+						aceptarBoton.setText("Modificar");
+						aceptarBoton.setActionCommand("ActualizarDatosCategoria");
+						cancelarBoton.setActionCommand("VolverMenuCategorias");
+						view();					
+					} catch (DomainException e1) {
+						e1.printStackTrace();
+					}
 				
-				
+				}			
+			}else if(comando.equals("ActualizarDatosCategoria")){	
+				Integer.parseInt(idText.getText());
+				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
+					Categoria categoria = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
+					controladorCat.actualizar(categoria);
+				}
+			}else if(comando.equals("VolverMenuCategorias")){	
+				frame.hide();
+				listarCategoriasVista();
+				view();
 			}else if(comando.equals("CrearCategoria")){	
 				Integer.parseInt(idText.getText());
 				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
@@ -212,7 +224,6 @@ public class VistaCategoria implements ActionListener{
 				}
 			}
 			
-		//	table.getSelectionModel().isSelectionEmpty()
 			
 		}
 	

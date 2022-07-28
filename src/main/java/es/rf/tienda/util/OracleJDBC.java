@@ -15,8 +15,8 @@ public class OracleJDBC {
 	private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	//private final static String DATABASE = "";
-	private final static String USUARIO = "hr";
-	private final static String PASSWORD = "hr";
+	private final static String USUARIO = "alumno";
+	private final static String PASSWORD = "Curso2022";
 
 //	public static void main(String[] argv) {
 //		conn = null;
@@ -143,6 +143,7 @@ public class OracleJDBC {
 		try {
 			stm = conn.createStatement();
 			retorno = stm.executeUpdate(sql);
+			System.out.println("Hola");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw (new Exception("error en " + sql));

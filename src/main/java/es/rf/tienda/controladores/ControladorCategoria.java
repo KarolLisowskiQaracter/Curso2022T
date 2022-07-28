@@ -35,14 +35,12 @@ public class ControladorCategoria implements Controlador<Categoria>{
 
 	
 	public boolean crear(Categoria obj) {
-			
 		return catDAO.crearCategoria(obj);
 	}
 
 	
 	public boolean actualizar(Categoria obj) {
-		// TODO Auto-generated method stub
-		return false;
+		return catDAO.actualizarCategoria(obj);
 	}
 
 	

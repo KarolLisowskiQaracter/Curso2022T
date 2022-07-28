@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * ******************************************************************************************/
 public class Validator {
 	
-	static final String ALFANUMERIC_PATTERN = "^[0-9a-zA-Z \\.,;\\-áéíóúàèìò]+$";
+	static final String ALFANUMERIC_PATTERN = "^[0-9a-zA-Z \\.,;\\-ñÑáéíóúàèìò]+$";
 	
 	private static final String PASSWORD_PATTERN = 
             "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
