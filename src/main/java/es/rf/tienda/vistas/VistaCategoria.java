@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -42,12 +43,6 @@ public class VistaCategoria implements ActionListener{
 	
 	public VistaCategoria() {
 		controladorCat = new ControladorCategoria(this);
-	/*	JFrame vista = new JFrame();
-		vista.setTitle("Gestion de categorias");
-		vista.setSize(600,400);
-		vista.setLocationRelativeTo(null);
-		
-		JPanel jpanel = new JPanel();*/
 	}
 	
 	
@@ -77,11 +72,7 @@ public class VistaCategoria implements ActionListener{
 				
 				public void actionPerformed(ActionEvent e) {
 					try {
-						Integer.parseInt(idText.getText());
-						if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
-							Categoria cat = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
-							controladorCat.crear(cat);
-						}
+						
 					}catch(Exception exception){
 						System.out.println("¡El id debe ser un valor numerico!");
 					}
@@ -117,73 +108,26 @@ public class VistaCategoria implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setSize(500,400);
 		frame.setLocationRelativeTo(null);
-			//panel.setSize(480, 300);
-			//Color c = Color.blue;
-		//	panel.setBackground(c);
-		//	panel.show();
+
 			JTable table = new JTable();
-			BorderLayout border = new BorderLayout();
+			BorderLayout border = new BorderLayout();			
 			
-		/*	idLabel = new JLabel("Id.");
-			nombreLabel = new JLabel("Nombre");
-			descripcionLabel = new JLabel("Descripcion");
-			idText = new JTextField();
-			nombreText = new JTextField();
-			descripcionText = new JTextArea();
-			aceptarBoton = new JButton("Aceptar");
-			aceptarBoton.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					try {
-						Integer.parseInt(idText.getText());
-						if(!idText.getText().equals("") && !idText.getText().equals("") && !idText.getText().equals("")) {
-							Categoria cat = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
-							controladorCat.crear(cat);
-						}
-					}catch(Exception exception){
-						System.out.println("¡El id debe ser un valor numerico!");
-					}
-				}
-			});
-			cancelarBoton = new JButton("Cancelar");
-			cancelarBoton.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					idText.setText("");
-					nombreText.setText("");
-					descripcionText.setText("");
-				}
-			});
+			List<Categoria> categories = controladorCat.listAll();
+			for(Categoria value : categories) {
+				System.out.println(value.getCat_nombre());
+			}
 			
-			GridLayout grid = new GridLayout(4,2); 
-			panel.setLayout(grid);
-			panel.add(idLabel);
-			panel.add(idText);
-			panel.add(nombreLabel);
-			panel.add(nombreText);
-			panel.add(descripcionLabel);	
-			panel.add(descripcionText);
-			panel.add(aceptarBoton);
-			panel.add(cancelarBoton); */
-			
-			String[][] data = {
-		            { "Manuel", "4031", "CSE" },
-		            { "Camila", "6014", "IT" },
-		            { "Jesus", "4031", "CSE" },
-		            { "Maria", "6014", "IT" },
-		            { "Marta", "4031", "CSE" },
-		            { "Juan", "6014", "IT" },
-		            { "Ruben", "4031", "CSE" },
-		            { "Marisa", "6014", "IT" },
-		            { "Miguel", "4031", "CSE" },
-		            { "Victor", "6014", "IT" }
-		        };
-		 
+			String[][] array = new String[categories.size()][3];
+			for(int i = 0; i < categories.size(); i++) {
+				array[i][0] = Integer.toString(categories.get(i).getId_categoria());
+				array[i][1] = categories.get(i).getCat_nombre();
+				array[i][2] = categories.get(i).getCat_descripcion();
+			}
+		
 		        // Column Names
-		        String[] columnNames = { "Name", "Roll Number", "Department" };
+		        String[] columnNames = { "ID", "Nombre", "Descripcion" };
 		 
-		        table = new JTable(data, columnNames);
+		        table = new JTable(array, columnNames);
 		        table.setBounds(0, 0, 500, 200);
 		 
 		       
@@ -209,15 +153,18 @@ public class VistaCategoria implements ActionListener{
 			
 			JButton jButtonCrearCat = new JButton("Nueva categoria");
 			jButtonCrearCat.setSize(150, 90);
-			jButtonCrearCat.setActionCommand("CrearCategoria");
+			jButtonCrearCat.setActionCommand("CrearCategoriaPantalla");
+			jButtonCrearCat.addActionListener(this);
 			
 			JButton jButtonActualizarCat = new JButton("Actualizar");
 			jButtonActualizarCat.setSize(150, 90);
-			jButtonActualizarCat.setActionCommand("ListaUnaCatogoria");
+			jButtonActualizarCat.setActionCommand("ActualizarCategoria");
+			jButtonActualizarCat.addActionListener(this);
 			
 			JButton  jButtonBorrarCat = new JButton("Borrar");
 			jButtonBorrarCat.setSize(150, 90);
-			jButtonActualizarCat.setActionCommand("BorrarCatogoria");
+			jButtonBorrarCat.setActionCommand("BorrarCategoria");
+			jButtonBorrarCat.addActionListener(this);
 			
 			JPanel panel3 = new JPanel();
 			panel3.setBounds(0, 300, 500, 300);
@@ -242,17 +189,30 @@ public class VistaCategoria implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String comando = e.getActionCommand();
-			if(comando.equals("CrearCategoria")) {
+			if(comando.equals("CrearCategoriaPantalla")) {
 				frame.hide();
 				crearCategoriaVista();
 				view();
+				
 			}else if(comando.equals("ListarUnaCategoria")){
-				String dummy = "111;Dulces;Chocolates, bombones y mucho mas";
+				Categoria dummy = new Categoria(111,"Dulces" , "Chocolates, bombones y mucho mas");
 				Categoria cat = controladorCat.listOne(dummy);
 				System.out.println(cat.getId_categoria());
 				System.out.println(cat.getCat_nombre());
 				System.out.println(cat.getCat_descripcion());
+				
+			}else if(comando.equals("ActualizarCategoria")){
+				
+				
+			}else if(comando.equals("CrearCategoria")){	
+				Integer.parseInt(idText.getText());
+				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
+					Categoria cat = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
+					controladorCat.crear(cat);
+				}
 			}
+			
+		//	table.getSelectionModel().isSelectionEmpty()
 			
 		}
 	

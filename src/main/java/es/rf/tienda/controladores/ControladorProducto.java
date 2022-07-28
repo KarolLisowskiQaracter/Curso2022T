@@ -6,7 +6,7 @@ import es.rf.tienda.dominio.Producto;
 
 public class ControladorProducto implements Controlador<Producto>{
 
-	public Producto listOne(String obj) {
+	public Producto listOne(Producto obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,6 +1,8 @@
 package es.rf.tienda.objetos.daos;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.rf.tienda.dominio.Categoria;
 import es.rf.tienda.exception.DomainException;
@@ -29,22 +31,27 @@ public class CategoriaDAO {
 	}
 	
 	
-	public void listarCategorias() {
-	/*	INSERT_1 = "INSERT INTO CATEGORIES VALUES('" + cat.getId_categoria() + "','" + cat.getCat_nombre()+ "','" + cat.getCat_descripcion() + "')";
-		int filas = 0;
+	public List<Categoria> listarCategorias() {
+		ResultSet rs;
+		List<Categoria> lista = new ArrayList<>();
 		try {
-			filas = jdbc.ejecutar(SELECT_ALL_CATEGORIES);
+			rs = jdbc.ejecutarQuery(SELECT_ALL_CATEGORIES);
+			while (rs.next()) {
+				  int id = rs.getInt("cat_id");
+				  String nombre = rs.getString("cat_nombre");
+				  String descripcion = rs.getString("cat_descripcion");
+				  //Assuming you have a user object
+				  Categoria cat = new Categoria(id, nombre, descripcion);
+				  lista.add(cat);
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Registros afectados: " + filas); */
-		//return filas >  0  ;
+		return lista;
 	}
 	
-	public Categoria listarUnaCategoria(String values) {
-		String[] attributes = values.split(";");
-		
-		String query = SELECT_ALL_CATEGORIES + " WHERE cat_id = " + attributes[0] + " AND CAT_NOMBRE = '" + attributes[1] + "' AND CAT_DESCRIPCION = '" + attributes[2] + "'";
+	public Categoria listarUnaCategoria(Categoria categoria) {	
+		String query = SELECT_ALL_CATEGORIES + " WHERE cat_id = " + categoria.getId_categoria() + " AND CAT_NOMBRE = '" + categoria.getCat_nombre() + "' AND CAT_DESCRIPCION = '" + categoria.getCat_descripcion() + "'";
 		System.out.println(query);
 		ResultSet rs;
 		Categoria cat = new Categoria();
@@ -59,7 +66,6 @@ public class CategoriaDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return cat;
 	}
 }

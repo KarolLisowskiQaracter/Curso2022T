@@ -18,14 +18,13 @@ public class ControladorCategoria implements Controlador<Categoria>{
 		//jdbc = OracleJDBC.getInstance();
 	}
 	
-	public Categoria listOne(String cadena) {		
+	public Categoria listOne(Categoria cadena) {		
 		return catDAO.listarUnaCategoria(cadena);
 	}
 
 	
 	public List<Categoria> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return catDAO.listarCategorias();
 	}
 
 	
