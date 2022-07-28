@@ -207,10 +207,26 @@ public class VistaCategoria implements ActionListener{
 				
 				}			
 			}else if(comando.equals("ActualizarDatosCategoria")){	
-				Integer.parseInt(idText.getText());
 				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
 					Categoria categoria = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
 					controladorCat.actualizar(categoria);
+				}
+			}else if(comando.equals("BorrarCategoria")){	
+				if(!table.getSelectionModel().isSelectionEmpty() && table.getSelectionModel().getSelectedItemsCount() == 1) {
+					int selectedRow = table.getSelectionModel().getSelectedIndices()[0];
+					Categoria categoria = new Categoria();		
+					try {
+						categoria.setId_categoria(Integer.parseInt(table.getValueAt(selectedRow, 0).toString()));
+						categoria.setCat_nombre(table.getValueAt(selectedRow, 1).toString());
+						categoria.setCat_descripcion(table.getValueAt(selectedRow, 2).toString());
+						controladorCat.borrar(categoria);
+						frame.hide();
+						listarCategoriasVista();
+						view();
+					} catch (DomainException e1) {
+						e1.printStackTrace();
+					}
+				
 				}
 			}else if(comando.equals("VolverMenuCategorias")){	
 				frame.hide();

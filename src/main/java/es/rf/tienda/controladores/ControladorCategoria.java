@@ -45,8 +45,7 @@ public class ControladorCategoria implements Controlador<Categoria>{
 
 	
 	public boolean borrar(Categoria obj) {
-		// TODO Auto-generated method stub
-		return false;
+		return catDAO.borrarCategoria(obj);
 	}
 
 }

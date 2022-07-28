@@ -143,7 +143,6 @@ public class OracleJDBC {
 		try {
 			stm = conn.createStatement();
 			retorno = stm.executeUpdate(sql);
-			System.out.println("Hola");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw (new Exception("error en " + sql));

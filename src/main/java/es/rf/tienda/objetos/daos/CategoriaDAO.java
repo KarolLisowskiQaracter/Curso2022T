@@ -13,6 +13,7 @@ public class CategoriaDAO {
 	private static String INSERT_1;
 	private static String UPDATE = "UPDATE CATEGORIA SET ";
 	private static String SELECT_ALL_CATEGORIA ="SELECT * FROM CATEGORIA";
+	private static String DELETE ="DELETE FROM CATEGORIA ";
 	
 	
 	public CategoriaDAO() {
@@ -70,6 +71,20 @@ public class CategoriaDAO {
 	
 	public boolean actualizarCategoria(Categoria categoria) {	
 		String query = UPDATE + "cat_nombre = '" + categoria.getCat_nombre()+ "', " + " cat_descripcion = '" + categoria.getCat_descripcion() +"' WHERE ID_CATEGORIA = " + categoria.getId_categoria();
+		System.out.println(query);
+		int filas = 0;
+		try {
+			filas = jdbc.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Registros afectados: " + filas);
+		return filas >  0  ;
+	}
+	
+	
+	public boolean borrarCategoria(Categoria categoria) {	
+		String query = DELETE + "WHERE ID_CATEGORIA = " + categoria.getId_categoria();
 		System.out.println(query);
 		int filas = 0;
 		try {
