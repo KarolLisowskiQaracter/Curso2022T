@@ -95,4 +95,12 @@ public class CategoriaDAO {
 		System.out.println("Registros afectados: " + filas);
 		return filas >  0  ;
 	}
+	
+	public void commit() {
+		try {
+			jdbc.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

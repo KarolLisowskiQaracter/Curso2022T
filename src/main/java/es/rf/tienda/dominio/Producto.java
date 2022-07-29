@@ -38,7 +38,7 @@ public class Producto {
 	
 	public static final int PRO_STATE_LONG = 1;
 	
-	/*public Producto() {
+	public Producto() {
 		pro_desLarga = null;
 		pro_stock = 0;
 		pro_fecActi = null;
@@ -51,7 +51,7 @@ public class Producto {
 		pro_nstkBajo = 0;
 		pro_state = "A";
 		
-	}*/
+	}
 	
 	public String getId_producto() {
 		return id_producto;

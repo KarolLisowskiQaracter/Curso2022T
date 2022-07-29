@@ -24,11 +24,26 @@ public class Usuario {
 	
 	public static final int USER_DNI_LONG = 12;
 	
-	/*public Usuario() {
+	public Usuario() {
 		user_dni = null;
 		user_fecAlta = null;
 		user_fecConfirmacion = null;
-	} */
+	}
+	
+	public Usuario(int id, String nombre, String email) {
+		id_usuario = id;
+		user_nombre = nombre;
+		user_email = email;
+	} 
+	
+	public Usuario(int id, String nombre, String email, String contraseña, int tipoUsuario, String dni) {
+		id_usuario = id;
+		user_nombre = nombre;
+		user_email = email;
+		user_pass = contraseña;
+		id_tipo = tipoUsuario;
+		user_dni = dni;
+	}
 	
 	public int getId_usuario() {
 		return id_usuario;

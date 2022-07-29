@@ -18,8 +18,8 @@ public class ControladorCategoria implements Controlador<Categoria>{
 		//jdbc = OracleJDBC.getInstance();
 	}
 	
-	public Categoria listOne(Categoria cadena) {		
-		return catDAO.listarUnaCategoria(cadena);
+	public Categoria listOne(Categoria categoria) {		
+		return catDAO.listarUnaCategoria(categoria);
 	}
 
 	
@@ -35,17 +35,29 @@ public class ControladorCategoria implements Controlador<Categoria>{
 
 	
 	public boolean crear(Categoria obj) {
-		return catDAO.crearCategoria(obj);
+		Boolean result = catDAO.crearCategoria(obj);
+		if(result) {
+			catDAO.commit();
+		} 
+		return result;
 	}
 
 	
 	public boolean actualizar(Categoria obj) {
-		return catDAO.actualizarCategoria(obj);
+		Boolean result = catDAO.actualizarCategoria(obj);
+		if(result) {
+			catDAO.commit();
+		} 
+		return result;
 	}
 
 	
 	public boolean borrar(Categoria obj) {
-		return catDAO.borrarCategoria(obj);
+		Boolean result = catDAO.borrarCategoria(obj);
+		if(result) {
+			catDAO.commit();
+		} 
+		return result;
 	}
 
 }

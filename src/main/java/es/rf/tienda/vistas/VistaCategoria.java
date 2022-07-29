@@ -40,7 +40,7 @@ public class VistaCategoria implements ActionListener{
 	JTextField nombreText;
 	JTextArea descripcionText;
 	JButton aceptarBoton;
-	JButton cancelarBoton;
+	JButton vueltaMenuBoton;
 	JTable table;
 	
 	public VistaCategoria() {
@@ -72,8 +72,8 @@ public class VistaCategoria implements ActionListener{
 			aceptarBoton = new JButton("Aceptar");
 			aceptarBoton.setActionCommand("CrearCategoria");
 			aceptarBoton.addActionListener(this);
-			cancelarBoton = new JButton("Volver al menu");
-			cancelarBoton.addActionListener(this);
+			vueltaMenuBoton = new JButton("Volver al menu");
+			vueltaMenuBoton.addActionListener(this);
 			
 			GridLayout grid = new GridLayout(4,2);
 			panel.setLayout(grid);
@@ -84,7 +84,7 @@ public class VistaCategoria implements ActionListener{
 			panel.add(descripcionLabel);	
 			panel.add(descripcionText);
 			panel.add(aceptarBoton);
-			panel.add(cancelarBoton);
+			panel.add(vueltaMenuBoton);
 
 	    }
 
@@ -199,7 +199,7 @@ public class VistaCategoria implements ActionListener{
 						descripcionText.setText(categoria.getCat_descripcion());
 						aceptarBoton.setText("Modificar");
 						aceptarBoton.setActionCommand("ActualizarDatosCategoria");
-						cancelarBoton.setActionCommand("VolverMenuCategorias");
+						vueltaMenuBoton.setActionCommand("VolverMenuCategorias");
 						view();					
 					} catch (DomainException e1) {
 						e1.printStackTrace();
@@ -210,6 +210,9 @@ public class VistaCategoria implements ActionListener{
 				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
 					Categoria categoria = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
 					controladorCat.actualizar(categoria);
+					frame.hide();
+					listarCategoriasVista();
+					view();
 				}
 			}else if(comando.equals("BorrarCategoria")){	
 				if(!table.getSelectionModel().isSelectionEmpty() && table.getSelectionModel().getSelectedItemsCount() == 1) {
@@ -237,6 +240,9 @@ public class VistaCategoria implements ActionListener{
 				if(!idText.getText().equals("") && !nombreText.getText().equals("") && !descripcionText.getText().equals("")) {
 					Categoria cat = new Categoria(Integer.parseInt(idText.getText()),nombreText.getText(),descripcionText.getText());
 					controladorCat.crear(cat);
+					frame.hide();
+					listarCategoriasVista();
+					view();
 				}
 			}
 			

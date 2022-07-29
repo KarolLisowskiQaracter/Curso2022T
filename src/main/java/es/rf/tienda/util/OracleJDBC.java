@@ -15,7 +15,7 @@ public class OracleJDBC {
 	private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	//private final static String DATABASE = "";
-	private final static String USUARIO = "alumno";
+	private final static String USUARIO = "Alumno";
 	private final static String PASSWORD = "Curso2022";
 
 //	public static void main(String[] argv) {
@@ -53,6 +53,7 @@ public class OracleJDBC {
 
 		try {
 			conn = DriverManager.getConnection(URL, USUARIO, PASSWORD);
+			conn.setAutoCommit(false);
 		} catch (SQLException e) {
 			System.out.println("Ha fallado la conexion, compruebe la consola");
 			e.printStackTrace();
@@ -81,6 +82,7 @@ public class OracleJDBC {
 
 	public void commit() throws Exception {
 		try {
+			System.out.println("Commit");
 			if (conn != null) {
 				conn.commit();
 			}
@@ -143,6 +145,7 @@ public class OracleJDBC {
 		try {
 			stm = conn.createStatement();
 			retorno = stm.executeUpdate(sql);
+			System.out.println("PASO");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw (new Exception("error en " + sql));
