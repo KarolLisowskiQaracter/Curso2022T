@@ -33,8 +33,8 @@ public class VistaMenu implements ActionListener{
 		jb2.addActionListener(e -> ventana.getContentPane().setBackground(Color.GREEN));
 
 		JButton jb3 = new JButton("Usuarios");
-		
-		jb3.addActionListener(e -> ventana.getContentPane().setBackground(Color.BLUE));
+		jb3.setActionCommand("PanelUsuarios");
+		jb3.addActionListener(this);
 
 		JButton jb4 = new JButton("Direcciones");
 		
@@ -72,6 +72,11 @@ public class VistaMenu implements ActionListener{
 			VistaCategoria vistaCat = new VistaCategoria();
 			vistaCat.listarCategoriasVista();
 			vistaCat.view();
+		}else if(comando.equals("PanelUsuarios")){
+			ventana.hide();
+			VistaUsuario vistaUsuario = new VistaUsuario();
+			vistaUsuario.listarUsuariosVista();
+			vistaUsuario.view();
 		}
 	}
 
