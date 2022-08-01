@@ -11,7 +11,6 @@ import java.sql.Statement;
 public class OracleJDBC {
 	private static OracleJDBC instancia = null;
 	private static Connection conn;
-
 	private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	//private final static String DATABASE = "";
