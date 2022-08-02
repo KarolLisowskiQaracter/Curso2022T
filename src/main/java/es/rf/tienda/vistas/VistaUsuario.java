@@ -176,6 +176,11 @@ public class VistaUsuario implements ActionListener{
 			jButtonBorrarUsuario.setActionCommand("BorrarUsuario");
 			jButtonBorrarUsuario.addActionListener(this);
 			
+			JButton  jButtonVolverMenuPrincipal = new JButton("Menu");
+			jButtonVolverMenuPrincipal.setSize(150, 90);
+			jButtonVolverMenuPrincipal.setActionCommand("VolverMenuPrincipal");
+			jButtonVolverMenuPrincipal.addActionListener(this);
+			
 			JPanel panel3 = new JPanel();
 			panel3.setBounds(0, 300, 500, 300);
 			Container c2 = new Container();
@@ -185,10 +190,12 @@ public class VistaUsuario implements ActionListener{
 			c2.add(jButtonCrearUsuario);
 			c2.add(jButtonActualizarUsuario);
 			c2.add(jButtonBorrarUsuario);
+			c2.add(jButtonVolverMenuPrincipal);
+			
 			Color green = Color.green;
 			c2.setBackground(green);
 			c2.setMaximumSize(new Dimension(500, 300));
-			GridLayout grid2 = new GridLayout(0,3);
+			GridLayout grid2 = new GridLayout(0,4);
 			c2.setLayout(grid2);
 			c2.setVisible(true);
 			panel3.add(c2);
@@ -263,7 +270,9 @@ public class VistaUsuario implements ActionListener{
 				listarUsuariosVista();
 				view();
 			}
-		}
-		
+		}else if(comando.equals("VolverMenuPrincipal")){	
+			frame.hide();
+			VistaMenu.getInstance().crearVistaMenu();		
+		}	
 	}
 }
