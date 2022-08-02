@@ -10,7 +10,7 @@ import es.rf.tienda.util.OracleJDBC;
 
 public class CategoriaDAO {
 	OracleJDBC jdbc;
-	private static String INSERT_1;
+	private static String INSERT_1 = "INSERT INTO CATEGORIA VALUES('";
 	private static String UPDATE = "UPDATE CATEGORIA SET ";
 	private static String SELECT_ALL_CATEGORIA ="SELECT * FROM CATEGORIA";
 	private static String DELETE ="DELETE FROM CATEGORIA ";
@@ -21,7 +21,7 @@ public class CategoriaDAO {
 	}
 	
 	public boolean crearCategoria(Categoria cat) {
-		INSERT_1 = "INSERT INTO CATEGORIA VALUES('" + cat.getId_categoria() + "','" + cat.getCat_nombre()+ "','" + cat.getCat_descripcion() + "')";
+		INSERT_1 = INSERT_1 + cat.getId_categoria() + "','" + cat.getCat_nombre()+ "','" + cat.getCat_descripcion() + "')";
 		int filas = 0;
 		try {
 			filas = jdbc.ejecutar(INSERT_1);

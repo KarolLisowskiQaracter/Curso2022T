@@ -1,6 +1,5 @@
 package es.rf.tienda.util;
 
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ public class OracleJDBC {
 	private static Connection conn;
 	private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	//private final static String DATABASE = "";
+	// private final static String DATABASE = "";
 	private final static String USUARIO = "Alumno";
 	private final static String PASSWORD = "Curso2022";
 
@@ -23,7 +22,7 @@ public class OracleJDBC {
 //
 //	}
 
-	private OracleJDBC() {	
+	private OracleJDBC() {
 		conexion();
 	}
 
@@ -33,9 +32,6 @@ public class OracleJDBC {
 		}
 		return instancia;
 	}
-	
-	
-	
 
 	private void conexion() {
 		System.out.println("-------- Prueba de conexion a BBDD ------");
@@ -167,7 +163,7 @@ public class OracleJDBC {
 			e.printStackTrace();
 			throw (new Exception("error en " + sql));
 		} finally {
-			//closeStatement(stm);
+			// closeStatement(stm);
 		}
 		return retorno;
 	}

@@ -9,8 +9,7 @@ import es.rf.tienda.util.OracleJDBC;
 public class VistaMain {
 	
 	public static void main(String[] args) {
-		VistaMenu vista = new VistaMenu();
-		vista.crearVistaMenu();
+		VistaMenu.getInstance();
 	}
 
 }
