@@ -34,7 +34,7 @@ public class VistaCategoria implements ActionListener{
 	
 	
 	Categoria object;
-	static JFrame frame;
+	JFrame frame;
 	JLabel idLabel;
 	JLabel nombreLabel;
 	JLabel descripcionLabel;
@@ -47,25 +47,23 @@ public class VistaCategoria implements ActionListener{
 	
 	private VistaCategoria() {
 		controladorCat = new ControladorCategoria(this);
-		listarCategoriasVista();
 	}
 	
 	public static VistaCategoria getInstance() {
 		if (instancia == null) {
 			instancia = new VistaCategoria();
 		}
-		view();
 		return instancia;
 	}
 	
 	
 	
-	public static void view() {	
+	public void view() {	
 		frame.setVisible(true);	
 	}
 	
 
-	public void crearCategoriaVista() {
+	private void crearCategoriaVista() {
 	    frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -85,6 +83,7 @@ public class VistaCategoria implements ActionListener{
 			aceptarBoton.addActionListener(this);
 			vueltaMenuBoton = new JButton("Volver al menu");
 			vueltaMenuBoton.addActionListener(this);
+			vueltaMenuBoton.setActionCommand("VolverMenuCategorias");
 			
 			GridLayout grid = new GridLayout(4,2);
 			panel.setLayout(grid);
@@ -96,7 +95,7 @@ public class VistaCategoria implements ActionListener{
 			panel.add(descripcionText);
 			panel.add(aceptarBoton);
 			panel.add(vueltaMenuBoton);
-
+			view();
 	    }
 
 	public void listarCategoriasVista() {
@@ -183,6 +182,7 @@ public class VistaCategoria implements ActionListener{
 			panel3.add(c2);
 			panel3.setVisible(true);
 			frame.getContentPane().add(c2,BorderLayout.SOUTH);
+			view();
 	    }
 	
 		@Override

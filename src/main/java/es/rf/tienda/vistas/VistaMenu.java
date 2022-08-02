@@ -83,10 +83,10 @@ public class VistaMenu implements ActionListener{
 		String comando = e.getActionCommand();
 		if(comando.equals("PanelCategorias")) {
 			ventana.hide();
-			VistaCategoria.getInstance();
+			VistaCategoria.getInstance().listarCategoriasVista();;
 		}else if(comando.equals("PanelUsuarios")){
 			ventana.hide();
-			VistaUsuario.getInstance();
+			VistaUsuario.getInstance().listarUsuariosVista();
 		}
 	}
 

@@ -28,7 +28,7 @@ public class VistaUsuario implements ActionListener{
 	private static VistaUsuario instancia = null;
 	
 	Usuario object;
-	static JFrame frame;
+	JFrame frame;
 	JLabel idLabel;
 	JLabel nombreLabel;
 	JLabel emailLabel;
@@ -51,20 +51,17 @@ public class VistaUsuario implements ActionListener{
 	
 	private VistaUsuario() {
 		controladorUsuario = new ControladorUsuario(this);
-		listarUsuariosVista();
-		view();
 	}
 
 	public static VistaUsuario getInstance() {
 		if (instancia == null) {
 			instancia = new VistaUsuario();
 		}
-		view();
 		return instancia;
 	}
 	
 	
-	private static void view() {	
+	private void view() {	
 		frame.setVisible(true);	
 	}
 	
@@ -123,10 +120,10 @@ public class VistaUsuario implements ActionListener{
 			panel.add(fechaConfirmacionText);
 			panel.add(aceptarBoton);
 			panel.add(vueltaMenuBoton);
-
+			view();
 	    }
 	
-	private void listarUsuariosVista() {
+	public void listarUsuariosVista() {
 	    frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -211,6 +208,7 @@ public class VistaUsuario implements ActionListener{
 			panel3.add(c2);
 			panel3.setVisible(true);
 			frame.getContentPane().add(c2,BorderLayout.SOUTH);
+			view();
 	    }
 
 	@Override
