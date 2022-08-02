@@ -21,7 +21,6 @@ public class CategoriaDAO {
 	}
 	
 	public boolean crearCategoria(Categoria cat) {
-	//	Boolean hasId = cat.getId_categoria().notEquals();
 		INSERT_1 = INSERT_1 + cat.getId_categoria() + "','" + cat.getCat_nombre()+ "','" + cat.getCat_descripcion() + "')";
 		int filas = 0;
 		try {

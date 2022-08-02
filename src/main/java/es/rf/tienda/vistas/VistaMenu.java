@@ -12,38 +12,38 @@ import javax.swing.JFrame;
 
 import es.rf.tienda.util.OracleJDBC;
 
-public class VistaMenu implements ActionListener{
+public class VistaMenu implements ActionListener {
 	JFrame ventana;
 	private static VistaMenu instancia = null;
-	
-	private VistaMenu() {	
+
+	private VistaMenu() {
 		crearVistaMenu();
 	}
-	
+
 	public static VistaMenu getInstance() {
 		if (instancia == null) {
 			instancia = new VistaMenu();
 		}
 		return instancia;
 	}
-	
-	public void crearVistaMenu(){
+
+	public void crearVistaMenu() {
 		ventana = new JFrame("Colores");
 		ventana.setSize(400, 400);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setLocationRelativeTo(null);
-		
+
 		Container panel = ventana.getContentPane();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		
+
 		JButton jb1 = new JButton("Categorias");
-		
+
 		jb1.addActionListener(this);
 		jb1.setActionCommand("PanelCategorias");
-		
+
 		JButton jb2 = new JButton("Productos");
-		
+
 		jb2.addActionListener(e -> ventana.getContentPane().setBackground(Color.GREEN));
 
 		JButton jb3 = new JButton("Usuarios");
@@ -51,40 +51,38 @@ public class VistaMenu implements ActionListener{
 		jb3.addActionListener(this);
 
 		JButton jb4 = new JButton("Direcciones");
-		
+
 		jb4.addActionListener(e -> ventana.getContentPane().setBackground(Color.WHITE));
-		
+
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		panel.add(jb1,gbc);
-		
+		panel.add(jb1, gbc);
+
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		panel.add(jb2,gbc);
-		
+		panel.add(jb2, gbc);
+
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		panel.add(jb3,gbc);
-		
+		panel.add(jb3, gbc);
+
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		panel.add(jb4,gbc);
-		
-		
+		panel.add(jb4, gbc);
+
 		ventana.setVisible(true);
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String comando = e.getActionCommand();
-		if(comando.equals("PanelCategorias")) {
+		if (comando.equals("PanelCategorias")) {
 			ventana.hide();
-			VistaCategoria.getInstance().listarCategoriasVista();;
-		}else if(comando.equals("PanelUsuarios")){
+			VistaCategoria.getInstance().listarCategoriasVista();
+			;
+		} else if (comando.equals("PanelUsuarios")) {
 			ventana.hide();
 			VistaUsuario.getInstance().listarUsuariosVista();
 		}
