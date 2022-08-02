@@ -25,9 +25,10 @@ import es.rf.tienda.exception.DomainException;
 
 public class VistaUsuario implements ActionListener{
 	private ControladorUsuario controladorUsuario;
+	private static VistaUsuario instancia = null;
 	
 	Usuario object;
-	JFrame frame;
+	static JFrame frame;
 	JLabel idLabel;
 	JLabel nombreLabel;
 	JLabel emailLabel;
@@ -48,17 +49,26 @@ public class VistaUsuario implements ActionListener{
 	JButton vueltaMenuBoton;
 	JTable table;
 	
-	public VistaUsuario() {
+	private VistaUsuario() {
 		controladorUsuario = new ControladorUsuario(this);
+		listarUsuariosVista();
+		view();
+	}
+
+	public static VistaUsuario getInstance() {
+		if (instancia == null) {
+			instancia = new VistaUsuario();
+		}
+		view();
+		return instancia;
 	}
 	
 	
-	
-	public void view() {	
+	private static void view() {	
 		frame.setVisible(true);	
 	}
 	
-	public void crearUsuarioVista() {
+	private void crearUsuarioVista() {
 	    frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -116,7 +126,7 @@ public class VistaUsuario implements ActionListener{
 
 	    }
 	
-	public void listarUsuariosVista() {
+	private void listarUsuariosVista() {
 	    frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

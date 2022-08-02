@@ -10,8 +10,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import es.rf.tienda.util.OracleJDBC;
+
 public class VistaMenu implements ActionListener{
 	JFrame ventana;
+	private static VistaMenu instancia = null;
+	
+	private VistaMenu() {	
+		crearVistaMenu();
+	}
+	
+	public static VistaMenu getInstance() {
+		if (instancia == null) {
+			instancia = new VistaMenu();
+		}
+		return instancia;
+	}
 	
 	public void crearVistaMenu(){
 		ventana = new JFrame("Colores");
@@ -69,14 +83,10 @@ public class VistaMenu implements ActionListener{
 		String comando = e.getActionCommand();
 		if(comando.equals("PanelCategorias")) {
 			ventana.hide();
-			VistaCategoria vistaCat = new VistaCategoria();
-			vistaCat.listarCategoriasVista();
-			vistaCat.view();
+			VistaCategoria.getInstance();
 		}else if(comando.equals("PanelUsuarios")){
 			ventana.hide();
-			VistaUsuario vistaUsuario = new VistaUsuario();
-			vistaUsuario.listarUsuariosVista();
-			vistaUsuario.view();
+			VistaUsuario.getInstance();
 		}
 	}
 

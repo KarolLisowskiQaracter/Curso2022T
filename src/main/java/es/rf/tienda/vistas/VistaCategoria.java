@@ -30,9 +30,11 @@ import es.rf.tienda.exception.DomainException;
 
 public class VistaCategoria implements ActionListener{
 	private ControladorCategoria controladorCat;
+	private static VistaCategoria instancia = null;
+	
 	
 	Categoria object;
-	JFrame frame;
+	static JFrame frame;
 	JLabel idLabel;
 	JLabel nombreLabel;
 	JLabel descripcionLabel;
@@ -43,13 +45,22 @@ public class VistaCategoria implements ActionListener{
 	JButton vueltaMenuBoton;
 	JTable table;
 	
-	public VistaCategoria() {
+	private VistaCategoria() {
 		controladorCat = new ControladorCategoria(this);
+		listarCategoriasVista();
+	}
+	
+	public static VistaCategoria getInstance() {
+		if (instancia == null) {
+			instancia = new VistaCategoria();
+		}
+		view();
+		return instancia;
 	}
 	
 	
 	
-	public void view() {	
+	public static void view() {	
 		frame.setVisible(true);	
 	}
 	
